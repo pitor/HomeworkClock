@@ -11,15 +11,19 @@ import java.util.*
 
 class TimerView : RelativeLayout {
 
-    private lateinit var seconds : TextView
-    private lateinit var minutes : TextView
-    private lateinit var hours : TextView
+    private lateinit var secondsText : TextView
+    private lateinit var minutesText : TextView
+    private lateinit var hoursText : TextView
 
-    constructor(context: Context) : this(context, null) {
+    var isRunning = false
+    var timer : Timer? = null
+    var millis : Long = 0
+
+    constructor(context: Context) : super(context, null) {
         initView(context)
     }
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0) {
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs, 0) {
         initView(context)
     }
 
@@ -31,32 +35,51 @@ class TimerView : RelativeLayout {
         val inflater : LayoutInflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.timerview, this, true)
 
-        hours = findViewById(R.id.timerview_hours)
-        minutes = findViewById(R.id.timerview_minutes)
-        seconds = findViewById(R.id.timerview_seconds)
+        hoursText = findViewById(R.id.timerview_hours)
+        minutesText = findViewById(R.id.timerview_minutes)
+        secondsText = findViewById(R.id.timerview_seconds)
 
-        hours.text = "00"
-        minutes.text = "00"
-        seconds.text = "00"
+        hoursText.text = "00"
+        minutesText.text = "00"
+        secondsText.text = "00"
+        forceLayout()
     }
 
     fun Start(context: Activity) {
-        var counter = 0;
-        val timer = Timer()
-        timer.schedule(object : TimerTask() {
+        timer = Timer()
+
+        val startMillis = millis
+        val startTime = System.currentTimeMillis()
+        timer!!.schedule(object : TimerTask() {
             override fun run() {
-                counter = (counter + 1) % 100
+                millis = startMillis + System.currentTimeMillis() - startTime;
                 context.runOnUiThread {
-                    seconds.text = counter.toString();
-                    hours.text = counter.toString();
-                    minutes.text = counter.toString();
+                   updateTextFields()
                 }
             }
-        }, 0, 999)
+        }, 0, 100)
 
+        isRunning = true;
     }
 
-    public fun Stop() {
+    fun Pause() {
+        if(timer != null)
+            timer!!.cancel()
+        timer = null;
+        isRunning = false;
+    }
 
+    fun Reset() {
+        millis = 0;
+    }
+
+    private fun updateTextFields() {
+        val seconds = (millis / 1000) % 60
+        val minutes = (millis / 60000 ) % 60
+        val hours = (millis / (60 * 60 * 1000 ))
+
+        secondsText.text = String.format("%02d", seconds)
+        hoursText.text = String.format("%02d", hours)
+        minutesText.text = String.format("%02d", minutes)
     }
 }

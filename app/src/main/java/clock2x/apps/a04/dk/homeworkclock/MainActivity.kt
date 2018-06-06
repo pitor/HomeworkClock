@@ -14,11 +14,29 @@ class MainActivity : AppCompatActivity() {
 
         timer1 = findViewById(R.id.timer1)
         timer2 = findViewById(R.id.timer2)
+
+        timer1.setOnClickListener({ v -> run {
+            if(timer1.isRunning) {
+                timer1.Pause();
+            }
+            else {
+                timer1.Start(this)
+                timer2.Pause()
+            }
+        } })
+
+        timer2.setOnClickListener({ v -> run {
+            if(timer2.isRunning) {
+                timer2.Pause();
+            }
+            else {
+                timer2.Start(this)
+                timer1.Pause()
+            }
+        } })
     }
 
     override  fun onResume() {
         super.onResume()
-        timer1.Start(this)
-
     }
 }
