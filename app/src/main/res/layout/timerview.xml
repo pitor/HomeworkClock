@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="android.widget.RelativeLayout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        tools:text="00"
+        android:textSize="@dimen/counter_textsize"
+        android:id="@+id/timerview_minutes"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timerview_colonright"
+        android:text=":"
+        android:layout_toEndOf="@id/timerview_minutes"
+        android:layout_alignBaseline="@id/timerview_minutes"
+        android:textSize="@dimen/counter_textsize"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timerview_colonleft"
+        android:text=":"
+        android:layout_toStartOf="@id/timerview_minutes"
+        android:layout_alignBaseline="@id/timerview_minutes"
+        android:textSize="@dimen/counter_textsize"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/timerview_colonright"
+        android:layout_alignBaseline="@id/timerview_minutes"
+        android:textSize="@dimen/counter_textsize"
+        tools:text="00"
+        android:id="@+id/timerview_seconds"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/timerview_colonleft"
+        android:layout_alignBaseline="@id/timerview_minutes"
+        android:textSize="@dimen/counter_textsize"
+        tools:text="00"
+        android:id="@+id/timerview_hours"
+        />
+
+</merge>
