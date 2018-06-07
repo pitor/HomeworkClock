@@ -18,13 +18,15 @@
             android:id="@+id/timer1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/colorGoodTimeBg">
         </clock2x.apps.a04.dk.homeworkclock.TimerView>
         <clock2x.apps.a04.dk.homeworkclock.TimerView
             android:id="@+id/timer2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/colorBaadTimeBg">
         </clock2x.apps.a04.dk.homeworkclock.TimerView>
     </LinearLayout>
 

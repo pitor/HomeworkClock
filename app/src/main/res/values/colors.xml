@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorTimerText">#ffffff</color>
+    <color name="colorGoodTimeBg">#2dab44</color>
+    <color name="colorBaadTimeBg">#b72a23</color>
 </resources>

@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:parentTag="android.widget.RelativeLayout">
+    tools:parentTag="android.widget.RelativeLayout"
+    android:background="@color/colorGoodTimeBg">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         tools:text="00"
-        android:textSize="@dimen/counter_textsize"
         android:id="@+id/timerview_minutes"
         android:text="XX"
+        style="@style/TimerTextView"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -22,7 +23,7 @@
         android:text=":"
         android:layout_toEndOf="@id/timerview_minutes"
         android:layout_alignBaseline="@id/timerview_minutes"
-        android:textSize="@dimen/counter_textsize"
+        style="@style/TimerColonTextView"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -31,14 +32,14 @@
         android:text=":"
         android:layout_toStartOf="@id/timerview_minutes"
         android:layout_alignBaseline="@id/timerview_minutes"
-        android:textSize="@dimen/counter_textsize"
+        style="@style/TimerColonTextView"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/timerview_colonright"
         android:layout_alignBaseline="@id/timerview_minutes"
-        android:textSize="@dimen/counter_textsize"
+        style="@style/TimerTextView"
         tools:text="00"
         android:id="@+id/timerview_seconds"
         android:text="XX"
@@ -48,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/timerview_colonleft"
         android:layout_alignBaseline="@id/timerview_minutes"
-        android:textSize="@dimen/counter_textsize"
+        style="@style/TimerTextView"
         tools:text="00"
         android:id="@+id/timerview_hours"
         android:text="XX"

@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TimerTextView">
+        <item name="android:textColor">@color/colorTimerText</item>
+        <item name="android:textSize">@dimen/counter_textsize</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">monospace</item>
+    </style>
+
+    <style name="TimerColonTextView">
+        <item name="android:textColor">@color/colorTimerText</item>
+        <item name="android:textSize">@dimen/counter_textsize</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
 </resources>
