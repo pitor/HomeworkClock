@@ -71,7 +71,10 @@ class TimerView : RelativeLayout {
     }
 
     fun Reset() {
+        if(isRunning)
+            Pause();
         millis = 0;
+        updateTextFields()
     }
 
     private fun updateTextFields() {

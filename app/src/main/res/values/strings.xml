@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Homework Clock</string>
+    <string name="resetDialogTitle">Reset Timers</string>
+    <string name="resetDialogMessage">Do you want to reset the timers?</string>
+    <string name="resetDialogConfirm">@android:string/yes</string>
+    <string name="resetDialogCancel">@android:string/cancel</string>
 </resources>

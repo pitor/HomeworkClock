@@ -6,5 +6,7 @@
 
     <color name="colorTimerText">#ffffff</color>
     <color name="colorGoodTimeBg">#2dab44</color>
-    <color name="colorBaadTimeBg">#b72a23</color>
+    <color name="colorBadTimeBg">#b72a23</color>
+
+    <color name="colorAppBg">@color/colorPrimary</color>
 </resources>
