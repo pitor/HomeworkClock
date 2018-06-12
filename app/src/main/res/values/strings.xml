@@ -4,4 +4,6 @@
     <string name="resetDialogMessage">Do you want to reset the timers?</string>
     <string name="resetDialogConfirm">@android:string/yes</string>
     <string name="resetDialogCancel">@android:string/cancel</string>
+    <string name="channel_name">HomeWork Clock</string>
+    <string name="channel_description">Homework Clock notification channel.</string>
 </resources>
