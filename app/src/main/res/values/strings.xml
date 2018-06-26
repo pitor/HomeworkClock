@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Homework Clock</string>
+    <string name="app_name">HomeWork Clock</string>
     <string name="resetDialogTitle">Reset Timers</string>
     <string name="resetDialogMessage">Do you want to reset the timers?</string>
     <string name="resetDialogConfirm">@android:string/yes</string>
@@ -8,4 +8,10 @@
     <string name="channel_description">Homework Clock notification channel.</string>
     <string name="notification_title">@string/app_name</string>
     <string name="notification_message">Clock is running. Click here to open.</string>
+    <string name="label_hours">H</string>
+    <string name="label_minutes">M</string>
+    <string name="label_seconds">S</string>
+    <string name="is_working">{0} is working</string>
+    <string name="is_wasting_time">{0} is wasting time</string>
+
 </resources>

@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.NotificationCompat
 import android.support.v7.app.AlertDialog
-import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import kotlinx.android.synthetic.main.activity_main.*
@@ -13,50 +12,59 @@ import android.app.NotificationChannel
 import android.os.Build
 import android.support.v4.app.NotificationManagerCompat
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
-
-
-
-
-
+import android.os.Vibrator
+import java.text.MessageFormat
 
 
 class MainActivity : AppCompatActivity() {
 
 
     private var crCount = 0
+    private val personName = "Linus";
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         crCount++
         setContentView(R.layout.activity_main)
         createNotificationChannel()
 
+        timer1.mainLabel = MessageFormat.format(getString(R.string.is_working), personName)
+
         timer1.setOnClickListener { v -> run {
             if(timer1.isRunning) {
-                timer1.Pause();
+                timer1.pause();
                 rotateArrow(0f);
 
             }
             else {
-                timer1.Start(this)
-                timer2.Pause()
+                timer1.start(this)
+                timer2.pause()
                 rotateArrow(-90.0f)
             }
         } }
 
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+
+        timer2.mainLabel = MessageFormat.format(getString(R.string.is_wasting_time), personName)
+
         timer2.setOnClickListener { v -> run {
             if(timer2.isRunning) {
-                timer2.Pause();
+                timer2.pause()
                 rotateArrow(0f)
             }
             else {
-                timer2.Start(this)
-                timer1.Pause()
+                timer2.start(this)
+                timer1.pause()
                 rotateArrow(90f)
             }
+            vibrator.vibrate(100)
         } }
 
         resetButton.setOnClickListener {
@@ -68,8 +76,8 @@ class MainActivity : AppCompatActivity() {
             builder.setMessage(R.string.resetDialogMessage)
 
             builder.setPositiveButton(R.string.resetDialogConfirm) { dialogInterface, i -> run {
-                timer1.Reset()
-                timer2.Reset()
+                timer1.reset()
+                timer2.reset()
                 dialogInterface.dismiss()
             }}
             builder.setNegativeButton(R.string.resetDialogCancel, {dialogInterface, i -> dialogInterface.dismiss()})
@@ -81,6 +89,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         clearNotification()
+        timer1.starttUpdaterTimer(this)
+        timer2.starttUpdaterTimer(this)
     }
 
     override fun onPause() {
@@ -88,6 +98,23 @@ class MainActivity : AppCompatActivity() {
         if(timer1.isRunning || timer2.isRunning) {
             showNotification()
         }
+        timer1.stopUIUpdateTimer()
+        timer2.stopUIUpdateTimer()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        val timer1State = timer1.getState()
+        val timer2State = timer2.getState()
+
+        outState?.putBundle("timer1", timer1State)
+        outState?.putBundle("timer2", timer2State)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        timer1.restoreFromState(savedInstanceState?.getBundle("timer1"))
+        timer2.restoreFromState(savedInstanceState?.getBundle("timer2"))
     }
 
     private var prevDeg : Float = 0f;

@@ -22,4 +22,18 @@
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
+    <style name="TimerLabelTextView">
+        <item name="android:textColor">@color/colorTimerText</item>
+        <item name="android:textSize">@dimen/counter_label_textsize</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TimerMainLabelTextView">
+        <item name="android:textColor">@color/colorTimerText</item>
+        <item name="android:textSize">@dimen/counter_mainlabel_textsize</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
 </resources>

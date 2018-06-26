@@ -2,6 +2,7 @@ package clock2x.apps.a04.dk.homeworkclock
 
 import android.app.Activity
 import android.content.Context
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +18,23 @@ class TimerView : RelativeLayout {
     private lateinit var hoursText : TextView
     private lateinit var colonLeft: TextView
     private lateinit var colonRight: TextView
+    private lateinit var labelHours: TextView
+    private lateinit var mainLabelView: TextView
 
 
     var isRunning = false
     var timer : Timer? = null
     var millis : Long = 0
+    var startMillis : Long = 0;
+    var startTimeStamp : Long = 0;
+
+    var mainLabel : String
+    get() {
+        return mainLabelView.text.toString()
+    }
+    set(value) {
+        mainLabelView.text = value
+    }
 
     constructor(context: Context) : super(context, null) {
         initView(context)
@@ -44,40 +57,58 @@ class TimerView : RelativeLayout {
         secondsText = findViewById(R.id.timerview_seconds)
         colonLeft = findViewById(R.id.timerview_colonleft)
         colonRight = findViewById(R.id.timerview_colonright)
+        labelHours = findViewById(R.id.timerview_label_hours)
+        mainLabelView = findViewById(R.id.timerview_mainlabel)
 
-        hoursText.text = "00"
-        minutesText.text = "00"
-        secondsText.text = "00"
+        millis = 0
+        updateTextFields()
+
         forceLayout()
     }
 
-    fun Start(context: Activity) {
+    fun start(context: Activity) {
+
+
+        startMillis = millis
+        startTimeStamp = System.currentTimeMillis()
+        isRunning = true;
+
+        starttUpdaterTimer(context)
+    }
+
+    fun starttUpdaterTimer(context: Activity) {
+        updateTextFields()
+        if(!isRunning)
+            return
+
         timer = Timer()
 
-        val startMillis = millis
-        val startTime = System.currentTimeMillis()
         timer!!.schedule(object : TimerTask() {
             override fun run() {
-                millis = startMillis + System.currentTimeMillis() - startTime;
+                millis = startMillis + System.currentTimeMillis() - startTimeStamp;
                 context.runOnUiThread {
-                   updateTextFields()
+                    updateTextFields()
                 }
             }
         }, 0, 100)
-
-        isRunning = true;
     }
 
-    fun Pause() {
+    fun stopUIUpdateTimer() {
         if(timer != null)
             timer!!.cancel()
-        timer = null;
-        isRunning = false;
+        updateTextFields()
     }
 
-    fun Reset() {
+    fun pause() {
+        stopUIUpdateTimer()
+        timer = null;
+        isRunning = false;
+        updateTextFields()
+    }
+
+    fun reset() {
         if(isRunning)
-            Pause();
+            pause();
         millis = 0;
         updateTextFields()
     }
@@ -93,6 +124,7 @@ class TimerView : RelativeLayout {
             if(hoursText.visibility != View.VISIBLE) {
                 hoursText.visibility = View.VISIBLE
                 colonLeft.visibility = View.VISIBLE
+                labelHours.visibility = View.VISIBLE
                 requestLayout()
             }
         }
@@ -100,6 +132,7 @@ class TimerView : RelativeLayout {
             if(hoursText.visibility != View.GONE) {
                 hoursText.visibility = View.GONE
                 colonLeft.visibility = View.GONE
+                labelHours.visibility = View.GONE
                 requestLayout()
             }
             minutesText.text = String.format("%2d", minutes)
@@ -108,5 +141,31 @@ class TimerView : RelativeLayout {
         secondsText.text = String.format("%02d", seconds)
 
 
+    }
+
+    val millisKey = "millis"
+    val startmillisKey = "startMillis"
+    val startTimeStampKey = "startTimeStamp"
+    val isRunningKey = "isRunning"
+
+
+    fun getState(): Bundle {
+        var b =  Bundle();
+        with(b) {
+            putLong(millisKey, millis)
+            putLong(startmillisKey, startMillis)
+            putLong(startTimeStampKey, startTimeStamp)
+            putBoolean(isRunningKey, isRunning)
+        }
+        return b
+    }
+
+    fun restoreFromState(bundle: Bundle?) {
+        if (bundle != null) {
+            millis = bundle.getLong(millisKey)
+            startMillis = bundle.getLong(startmillisKey)
+            startTimeStamp = bundle.getLong(startTimeStampKey)
+            isRunning = bundle.getBoolean(isRunningKey)
+        }
     }
 }

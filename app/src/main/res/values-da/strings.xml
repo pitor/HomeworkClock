@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LektieUr</string>
+    <string name="resetDialogTitle">Nulstil tid</string>
+    <string name="resetDialogMessage">Vil du nulstille tiderne?</string>
+    <string name="channel_description">LektieUr notifikationskanal</string>
+    <string name="channel_name">LektieUr</string>
+    <string name="label_hours">T</string>
+    <string name="label_minutes">M</string>
+    <string name="label_seconds">S</string>
+    <string name="notification_message">LektieUr er i gang. Klik her for at åbne.</string>
+
+    <string name="is_working">{0} arbejder</string>
+    <string name="is_wasting_time">{0} spilder tiden</string>
+</resources>

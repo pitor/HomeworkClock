@@ -7,52 +7,102 @@
     tools:parentTag="android.widget.RelativeLayout"
     android:background="@color/colorGoodTimeBg">
 
-    <TextView
+
+    <RelativeLayout
+        android:id="@+id/timerview_timers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        tools:text="00"
-        android:id="@+id/timerview_minutes"
-        android:text="XX"
-        style="@style/TimerTextView"
-        />
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/timerview_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            style="@style/TimerTextView"
+            tools:text="00"
+            android:text="XX"
+            />
+        <TextView
+            android:id="@+id/timerview_colonleft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:layout_toEndOf="@id/timerview_hours"
+            android:layout_alignBaseline="@id/timerview_hours"
+            style="@style/TimerColonTextView"
+            />
+        <TextView
+            android:id="@+id/timerview_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="00"
+            android:layout_toEndOf="@id/timerview_colonleft"
+            android:layout_alignBaseline="@id/timerview_hours"
+            android:text="XX"
+            style="@style/TimerTextView"
+            />
+        <TextView
+            android:id="@+id/timerview_colonright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:layout_toEndOf="@id/timerview_minutes"
+            android:layout_alignBaseline="@id/timerview_hours"
+            style="@style/TimerColonTextView"
+            />
+
+        <TextView
+            android:id="@+id/timerview_seconds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/timerview_colonright"
+            android:layout_alignBaseline="@id/timerview_hours"
+            style="@style/TimerTextView"
+            tools:text="00"
+            android:text="XX"
+            />
+
+        <TextView
+            android:id="@+id/timerview_label_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timerview_hours"
+            android:layout_alignEnd="@id/timerview_hours"
+            android:layout_marginTop="-5dp"
+            style="@style/TimerLabelTextView"
+            android:text="@string/label_hours"
+            />
+        <TextView
+            android:id="@+id/timerview_label_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timerview_minutes"
+            android:layout_alignEnd="@id/timerview_minutes"
+            android:layout_marginTop="-5dp"
+            style="@style/TimerLabelTextView"
+            android:text="@string/label_minutes"
+            />
+        <TextView
+            android:id="@+id/timerview_label_seconds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/timerview_seconds"
+            android:layout_alignEnd="@id/timerview_seconds"
+            android:layout_marginTop="-5dp"
+            style="@style/TimerLabelTextView"
+            android:text="@string/label_seconds"
+            />
+
+    </RelativeLayout>
+
     <TextView
+        android:id="@+id/timerview_mainlabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/timerview_colonright"
-        android:text=":"
-        android:layout_toEndOf="@id/timerview_minutes"
-        android:layout_alignBaseline="@id/timerview_minutes"
-        style="@style/TimerColonTextView"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timerview_colonleft"
-        android:text=":"
-        android:layout_toStartOf="@id/timerview_minutes"
-        android:layout_alignBaseline="@id/timerview_minutes"
-        style="@style/TimerColonTextView"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/timerview_colonright"
-        android:layout_alignBaseline="@id/timerview_minutes"
-        style="@style/TimerTextView"
-        tools:text="00"
-        android:id="@+id/timerview_seconds"
-        android:text="XX"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@id/timerview_colonleft"
-        android:layout_alignBaseline="@id/timerview_minutes"
-        style="@style/TimerTextView"
-        tools:text="00"
-        android:id="@+id/timerview_hours"
-        android:text="XX"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/timerview_timers"
+        style="@style/TimerMainLabelTextView"
+        tools:text="Linus gør noget"
         />
 
 </merge>
