@@ -6,4 +6,6 @@
     <string name="resetDialogCancel">@android:string/cancel</string>
     <string name="channel_name">HomeWork Clock</string>
     <string name="channel_description">Homework Clock notification channel.</string>
+    <string name="notification_title">@string/app_name</string>
+    <string name="notification_message">Clock is running. Click here to open.</string>
 </resources>

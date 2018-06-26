@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         createNotificationChannel()
 
-        timer1.setOnClickListener({ v -> run {
+        timer1.setOnClickListener { v -> run {
             if(timer1.isRunning) {
                 timer1.Pause();
                 rotateArrow(0f);
@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity() {
                 timer2.Pause()
                 rotateArrow(-90.0f)
             }
-        } })
+        } }
 
-        timer2.setOnClickListener({ v -> run {
+        timer2.setOnClickListener { v -> run {
             if(timer2.isRunning) {
                 timer2.Pause();
                 rotateArrow(0f)
@@ -57,24 +57,25 @@ class MainActivity : AppCompatActivity() {
                 timer1.Pause()
                 rotateArrow(90f)
             }
-        } })
+        } }
 
-        resetButton.setOnClickListener({
+        resetButton.setOnClickListener {
             v -> run {
-                if(!timer1.isRunning && !timer2.isRunning)
-                    return@run
-                var builder = AlertDialog.Builder(this)
-                builder.setTitle(R.string.resetDialogTitle)
-                builder.setMessage(R.string.resetDialogMessage)
-                builder.setPositiveButton(R.string.resetDialogConfirm, {dialogInterface, i -> run {
-                    timer1.Reset()
-                    timer2.Reset()
-                    dialogInterface.dismiss()
-                }})
-                builder.setNegativeButton(R.string.resetDialogCancel, {dialogInterface, i -> dialogInterface.dismiss()})
-                builder.create().show()
-            }
-        })
+            if(!timer1.isRunning && !timer2.isRunning)
+                return@run
+            var builder = AlertDialog.Builder(this)
+            builder.setTitle(R.string.resetDialogTitle)
+            builder.setMessage(R.string.resetDialogMessage)
+
+            builder.setPositiveButton(R.string.resetDialogConfirm) { dialogInterface, i -> run {
+                timer1.Reset()
+                timer2.Reset()
+                dialogInterface.dismiss()
+            }}
+            builder.setNegativeButton(R.string.resetDialogCancel, {dialogInterface, i -> dialogInterface.dismiss()})
+            builder.create().show()
+        }
+        }
     }
 
     override fun onResume() {
@@ -124,10 +125,13 @@ class MainActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
+        val title = getString(R.string.notification_title);
+        val message = getString(R.string.notification_message);
+
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.abc_ic_arrow_drop_right_black_24dp)
-                .setContentTitle("Title")
-                .setContentText("Some text")
+                .setContentTitle(title)
+                .setContentText(message)
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         val noget = builder.build()

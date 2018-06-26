@@ -15,6 +15,9 @@ class TimerView : RelativeLayout {
     private lateinit var secondsText : TextView
     private lateinit var minutesText : TextView
     private lateinit var hoursText : TextView
+    private lateinit var colonLeft: TextView
+    private lateinit var colonRight: TextView
+
 
     var isRunning = false
     var timer : Timer? = null
@@ -39,6 +42,8 @@ class TimerView : RelativeLayout {
         hoursText = findViewById(R.id.timerview_hours)
         minutesText = findViewById(R.id.timerview_minutes)
         secondsText = findViewById(R.id.timerview_seconds)
+        colonLeft = findViewById(R.id.timerview_colonleft)
+        colonRight = findViewById(R.id.timerview_colonright)
 
         hoursText.text = "00"
         minutesText.text = "00"
@@ -82,8 +87,26 @@ class TimerView : RelativeLayout {
         val minutes = (millis / 60000 ) % 60
         val hours = (millis / (60 * 60 * 1000 ))
 
+        if(millis >= 3600000) {
+            hoursText.text = String.format("%2d", hours)
+            minutesText.text = String.format("%2d", minutes)
+            if(hoursText.visibility != View.VISIBLE) {
+                hoursText.visibility = View.VISIBLE
+                colonLeft.visibility = View.VISIBLE
+                requestLayout()
+            }
+        }
+        else {
+            if(hoursText.visibility != View.GONE) {
+                hoursText.visibility = View.GONE
+                colonLeft.visibility = View.GONE
+                requestLayout()
+            }
+            minutesText.text = String.format("%2d", minutes)
+        }
+
         secondsText.text = String.format("%02d", seconds)
-        hoursText.text = String.format("%02d", hours)
-        minutesText.text = String.format("%02d", minutes)
+
+
     }
 }
