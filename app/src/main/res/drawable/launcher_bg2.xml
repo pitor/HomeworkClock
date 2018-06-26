@@ -1,0 +1,14 @@
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:height="250dp" android:width="500dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/colorGoodTimeBg"/>
+        </shape>
+    </item>
+    <item android:top="250dp" android:height="250dp" android:width="500dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/colorBadTimeBg"/>
+        </shape>
+    </item>
+</layer-list>
