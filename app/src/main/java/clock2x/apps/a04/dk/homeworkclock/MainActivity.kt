@@ -214,7 +214,7 @@ class MainActivity : AppCompatActivity() {
         val message = getString(R.string.notification_message);
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.abc_ic_arrow_drop_right_black_24dp)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setContentIntent(pendingIntent)
