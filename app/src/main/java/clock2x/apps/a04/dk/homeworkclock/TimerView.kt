@@ -67,8 +67,6 @@ class TimerView : RelativeLayout {
     }
 
     fun start(context: Activity) {
-
-
         startMillis = millis
         startTimeStamp = System.currentTimeMillis()
         isRunning = true;

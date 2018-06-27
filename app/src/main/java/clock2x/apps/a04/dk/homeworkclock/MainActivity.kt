@@ -14,8 +14,12 @@ import android.support.v4.app.NotificationManagerCompat
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Parcel
 import android.os.Vibrator
 import java.text.MessageFormat
+import android.R.attr.data
+import android.util.Base64
+import kotlin.concurrent.timer
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,11 +32,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         crCount++
         setContentView(R.layout.activity_main)
         createNotificationChannel()
+
+        if(savedInstanceState == null) {
+            restoreFromSharedPrefs()
+        }
 
         timer1.mainLabel = MessageFormat.format(getString(R.string.is_working), personName)
 
@@ -69,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
         resetButton.setOnClickListener {
             v -> run {
-            if(!timer1.isRunning && !timer2.isRunning)
+            if(!timer1.isRunning && !timer2.isRunning && timer1.millis == 0L && timer2.millis == 0L)
                 return@run
             var builder = AlertDialog.Builder(this)
             builder.setTitle(R.string.resetDialogTitle)
@@ -117,6 +123,57 @@ class MainActivity : AppCompatActivity() {
         timer2.restoreFromState(savedInstanceState?.getBundle("timer2"))
     }
 
+
+    override fun onBackPressed() {
+        saveStateToSharedPrefs()
+        super.onBackPressed()
+    }
+
+    private fun saveStateToSharedPrefs() {
+        var prefs = getPreferences(Context.MODE_PRIVATE);
+        val timer1State = bundleToBase64(timer1.getState())
+        val timer2State = bundleToBase64(timer2.getState())
+
+        var editor = prefs.edit()
+        editor.putString("timer1", timer1State)
+        editor.putString("timer2", timer2State)
+        editor.commit()
+
+    }
+
+    private fun restoreFromSharedPrefs() {
+        var prefs = getPreferences(Context.MODE_PRIVATE);
+        val timer1State = prefs.getString("timer1", null)
+        val timer2State = prefs.getString("timer2", null)
+
+        var bundle1 = base64ToBundle(timer1State)
+        var bundle2 = base64ToBundle(timer2State)
+
+        timer1.restoreFromState(bundle1)
+        timer2.restoreFromState(bundle2)
+
+
+    }
+
+    private fun bundleToBase64(bundle: Bundle) : String {
+        var p = Parcel.obtain()
+        p.writeBundle(bundle)
+        var bytes = p.marshall();
+
+        val base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+        return base64;
+    }
+
+    private fun base64ToBundle(base64: String) :Bundle {
+        var bytes = Base64.decode(base64, Base64.DEFAULT)
+        var p = Parcel.obtain()
+        p.unmarshall(bytes, 0, bytes.size)
+        p.setDataPosition(0)
+        var bundle = p.readBundle()
+        var keys = bundle.keySet()
+        return bundle
+    }
+
     private var prevDeg : Float = 0f;
     private fun rotateArrow(deg: Float) {
         val anim =  RotateAnimation( prevDeg, deg,
@@ -143,6 +200,7 @@ class MainActivity : AppCompatActivity() {
 
         arrow.startAnimation(anim)
     }
+
 
     val CHANNEL_ID = "homeworkclockchannel"
 
