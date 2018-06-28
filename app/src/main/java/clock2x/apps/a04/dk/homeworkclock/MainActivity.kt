@@ -17,9 +17,8 @@ import android.content.Intent
 import android.os.Parcel
 import android.os.Vibrator
 import java.text.MessageFormat
-import android.R.attr.data
 import android.util.Base64
-import kotlin.concurrent.timer
+import android.graphics.BitmapFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -213,12 +212,15 @@ class MainActivity : AppCompatActivity() {
         val title = getString(R.string.notification_title);
         val message = getString(R.string.notification_message);
 
+        val largeIcon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher2)
+
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setLargeIcon(largeIcon)
         val noget = builder.build()
 
         val notificationManager = NotificationManagerCompat.from(this)
